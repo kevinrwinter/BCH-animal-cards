@@ -3,9 +3,17 @@ import React from "react";
 function Card(props) {
   return (
     <div className="card">
-      <img src="{props.image}" alt="" />
+      <img src={`https://source.unsplash.com/800x450/?${props.name}`} alt={props.name} />
+
+      <button className="delete" onClick={props.delete}>
+        X
+      </button>
+
       <h3>{props.name}</h3>
-      <p>Title: {props.title}</p>
+      <div className="card-info">
+        <p className="likes">&hearts; {props.like}</p>
+        <button onClick={props.add}>Add like</button>
+      </div>
     </div>
   );
 }
