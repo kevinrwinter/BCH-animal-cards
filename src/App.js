@@ -3,10 +3,6 @@ import React, { Component } from "react";
 import { animals } from "./animals"; // Specified No need to specify js file type
 import Card from "./components/Card"; // Named export default
 
-// import "./App.css";
-
-// import Button from "./components/Button";
-
 class App extends Component {
   // Primary building block
   state = {
@@ -42,22 +38,43 @@ class App extends Component {
     console.log(this.state);
   };
 
+  searchHandler = (e) => {
+    // console.log(e.target.value);
+    console.log(this.state.search);
+
+    // // Don't mutate state directly
+    // this.state.search = e.target.value;
+
+    this.setState({ search: e.target.value });
+  };
+
   render() {
+    const animalFilter = this.state.animals.filter((animal) => {
+      return animal.name.toLowerCase().includes(this.state.search.toLowerCase());
+    });
+
     return (
-      <div className="animals-list">
-        {/* <h1>Animals app</h1> */}
-        {this.state.animals.map((animal) => (
-          <Card
-            key={animal.name}
-            name={animal.name}
-            like={animal.likes}
-            // Binding method
-            // remove={this.removeHandler.bind(this, animal.name)} />
-            delete={() => this.removeHandler(animal.name)}
-            add={() => this.addLikeHandler(animal.name)}
-          />
-        ))}
-      </div>
+      <main>
+        <h1>Creatures left: {this.state.animals.length}</h1>
+        <input type="text" onChange={this.searchHandler} />
+        <h3>{this.state.search}</h3>
+        <div className="animals-list">
+          {/* This is props list */}
+          {animalFilter.map((animal) => (
+            <Card
+              // search={animal.search}
+              search={this.state.search}
+              key={animal.name}
+              name={animal.name}
+              like={animal.likes}
+              // Binding method
+              // remove={this.removeHandler.bind(this, animal.name)} />
+              delete={() => this.removeHandler(animal.name)}
+              add={() => this.addLikeHandler(animal.name)}
+            />
+          ))}
+        </div>
+      </main>
     );
   }
 }

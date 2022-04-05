@@ -3,6 +3,7 @@ import React from "react";
 function Card(props) {
   return (
     <div className="card">
+      <h3>{props.search}</h3>
       <img src={`https://source.unsplash.com/800x450/?${props.name}`} alt={props.name} />
 
       <button className="delete" onClick={props.delete}>
